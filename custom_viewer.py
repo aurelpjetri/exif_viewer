@@ -113,15 +113,16 @@ class CustomViewer(QMainWindow, Ui_MainWindow):
 
     def _remove_current_image(self):
         # remove the currently displayed image
-        self.model.remove_image(self.displayed_index)
-        self.displayed_index -= 1
-        # if there are images left view the next one
-        if len(self.model.pixmaps) > 0:
-            self._view_image(self.displayed_index)
-        # else hide table and side list and restore the initial message
-        else:
-            self.table_container_w.hide()
-            self.actionShowSideList.setChecked(False)
-            self._toggle_side_list()
-            self.img_lbl.setPixmap(QPixmap())
-            self.img_lbl.setText('Go to "File -> Open..." or press "Ctrl+O" to select one or more jpegs')
+        if self.displayed_index >= 0:
+            self.model.remove_image(self.displayed_index)
+            self.displayed_index -= 1
+            # if there are images left view the next one
+            if len(self.model.pixmaps) > 0:
+                self._view_image(self.displayed_index)
+            # else hide table and side list and restore the initial message
+            else:
+                self.table_container_w.hide()
+                self.actionShowSideList.setChecked(False)
+                self._toggle_side_list()
+                self.img_lbl.setPixmap(QPixmap())
+                self.img_lbl.setText('Go to "File -> Open..." or press "Ctrl+O" to select one or more jpegs')

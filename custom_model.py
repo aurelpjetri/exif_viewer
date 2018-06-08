@@ -94,6 +94,7 @@ class CustomModel:
 
     def remove_image(self, index: int):
         # remove the image corresponding to the index from the models
-        self.list_model.removeRow(index)
-        del self.table_models[index]
-        del self.pixmaps[index]
+        if self.list_model.rowCount()>0 and len(self.table_models)>0 and len(self.pixmaps)>0:
+            self.list_model.removeRow(index)
+            del self.table_models[index]
+            del self.pixmaps[index]
